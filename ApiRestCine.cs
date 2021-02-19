@@ -23,7 +23,23 @@ namespace proyecto_GestorCine
 
         }
 
+        public Peliculas GetPelicula(int id) 
+        {
+            var client = new RestClient(Properties.Settings.Default.apiEndPoint);
+            var request = new RestRequest($"/pelicula/{id}",Method.GET);
+            var response = client.Execute(request);
+            return JsonConvert.DeserializeObject<Peliculas>(response.Content);
+        }
 
+        public IRestResponse PostPeliculas(Peliculas nuevo)
+        {
+            var client = new RestClient(Properties.Settings.Default.apiEndPoint);
+            var request = new RestRequest("peliculas", Method.POST);
+            string data = JsonConvert.SerializeObject(nuevo);
+            request.AddParameter("application/json", data, ParameterType.RequestBody);
+            var response = client.Execute(request);
+            return response;
+        }
 
 
     }
