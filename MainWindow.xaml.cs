@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,18 @@ namespace proyecto_GestorCine
     /// </summary>
     public partial class MainWindow : Window
     {
+         
+         ApiRestCine apirest = new ApiRestCine();
+
+        ObservableCollection<Peliculas> peliculas;
         public MainWindow()
         {
             InitializeComponent();
+            peliculadDataGrid.AutoGenerateColumns = false;
+            peliculas = apirest.obtenerTodasPeliculas();
+            peliculadDataGrid.ItemsSource = peliculas;
+           
+
         }
 
         private void CommandBinding_Executed_edit(object sender, ExecutedRoutedEventArgs e)
@@ -32,13 +42,22 @@ namespace proyecto_GestorCine
 
         private void editarButton_Click(object sender, RoutedEventArgs e)
         {
+            ApiRestCine api = new ApiRestCine();
             editSessions editarSesion = new editSessions();
             editarSesion.Owner = this;
             if (editarSesion.ShowDialog() == true)
             {
-
+                editarSesion.editComboBox.ItemsSource = api.obtenerTodasPeliculas();
             }
-
+            else { MessageBox.Show("no funciona"); }
         }
+
+        private void help_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("TODO");
+        }
+
+        
+
     }
 }

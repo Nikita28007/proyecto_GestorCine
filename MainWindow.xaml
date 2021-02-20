@@ -15,10 +15,10 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Archivo">
                 <MenuItem Header="Editar sesiones" Command="local:CustomCommands.editarSesion"></MenuItem>
-                
+                <MenuItem Header="Recargar cartelera"></MenuItem>
                 
             </MenuItem>
-            <MenuItem Header="fegeg">
+            <MenuItem Header="TODO">
                 
             </MenuItem>
             
@@ -29,22 +29,35 @@
             </ToolBar>
 
         </ToolBarTray>
-
-        <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Right" Margin="5">
+        <Button DockPanel.Dock="Right" x:Name="help" Width="30" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="help_Click">
+            <Image Source="help.png" Height="20"  Width="20"/>
+        </Button>
+        <StackPanel DockPanel.Dock="Right"  VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Right" Margin="5">
             <Button x:Name="editarButton" Content="Editar sesiones" Width="110" Margin="0,0,0,10" Command="local:CustomCommands.editarSesion" Click="editarButton_Click"/>
             <Button Content="recargar cartelera" Width="110" />
+            <Button Content="vender entrada" Width="110" Margin="0,10,0,0"/>
+           
+           
 
         </StackPanel>
+       
 
-        <DataGrid ItemsSource="{Binding}">
+        <DataGrid x:Name="peliculadDataGrid" ItemsSource="{Binding}">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding  id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Titulo" Binding="{Binding titulo}"></DataGridTextColumn>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            
+                            <StackPanel>
+                                <Image x:Name="cartelImage" Source="{Binding Path=cartel}" Stretch="UniformToFill" Width="50" Height="50"></Image>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTextColumn Header="año" Binding="{Binding año}"></DataGridTextColumn>
+                <DataGridTextColumn Header="genero" Binding="{Binding genero}"></DataGridTextColumn>
+                <DataGridTextColumn Header="calificacion" Binding="{Binding calificacion}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         

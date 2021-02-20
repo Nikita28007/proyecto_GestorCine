@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:proyecto_GestorCine"
+       
         mc:Ignorable="d"
-        Title="Editar sesiones" Height="310.388" Width="590.582">
+        Title="Editar sesiones" MinHeight="310" MinWidth="590" Height="310" Width="590">
     <Window.Resources>
+        
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="40,10,0,0"/>
             <Setter Property="FontSize" Value="20"/>
@@ -52,20 +54,30 @@
 
         </StackPanel>
         <StackPanel Grid.Column="1">
-            <TextBox Height="23" TextWrapping="Wrap" Text=""/>
-            <TextBox Height="23" TextWrapping="Wrap" Text=""/>
-            <TextBox Height="23" TextWrapping="Wrap" Text=""/>
-            <TextBox Height="23" TextWrapping="Wrap" Text=""/>
+            <TextBox x:Name="fotoTextBox" Height="23" TextWrapping="Wrap" Text=""/>
+            <Button x:Name="subirButton" Content="subir cartel" Margin="0" VerticalAlignment="Stretch" Width="Auto" Click="subirButton_Click"/>
+            <TextBox x:Name="TituloTextBox" Height="23" TextWrapping="Wrap" Text=""/>
+            <TextBox x:Name="horaTextBox" Height="23" TextWrapping="Wrap" Text=""/>
+            <TextBox x:Name="salaTextBox" Height="23" TextWrapping="Wrap" Text=""/>
+           
         </StackPanel>
        
         <StackPanel  Style="{StaticResource botonesStack}">
-            <Button Content="Añadir" />
+            <Button x:Name="add" Content="Añadir" Click="add_Click" />
             <Button Content="Cancelar" />
             <Button Content="Guardar" />
 
         </StackPanel>
         <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <ComboBox Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,0,0" Width="222"/>
+            <ComboBox x:Name="editComboBox"  ItemsSource="{Binding Path=peliculas}" Margin="0,10,0,0" Width="222" SelectionChanged="editComboBox_SelectionChanged" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=titulo}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
 
 

@@ -16,17 +16,17 @@ namespace proyecto_GestorCine
         {
 
             var client = new RestClient(Properties.Settings.Default.apiEndPoint);
-            var request = new RestRequest(Method.GET); 
+            var request = new RestRequest(Method.GET);
             var response = client.Execute(request);
 
             return JsonConvert.DeserializeObject<ObservableCollection<Peliculas>>(response.Content);
 
         }
 
-        public Peliculas GetPelicula(int id) 
+        public Peliculas GetPelicula(int id)
         {
             var client = new RestClient(Properties.Settings.Default.apiEndPoint);
-            var request = new RestRequest($"/pelicula/{id}",Method.GET);
+            var request = new RestRequest($"/pelicula/{id}", Method.GET);
             var response = client.Execute(request);
             return JsonConvert.DeserializeObject<Peliculas>(response.Content);
         }
