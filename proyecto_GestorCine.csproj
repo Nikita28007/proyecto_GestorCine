@@ -89,11 +89,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="conectionViewModel.cs" />
     <Compile Include="Sesion.cs" />
     <Compile Include="Venta.xaml.cs">
       <DependentUpon>Venta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ventas.cs" />
     <Page Include="editSessions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

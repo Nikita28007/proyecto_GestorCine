@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Editar sesiones" MinHeight="310" MinWidth="590" Height="310" Width="590">
     <Window.Resources>
-        
+
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="40,10,0,0"/>
             <Setter Property="FontSize" Value="20"/>
@@ -17,6 +17,9 @@
         <Style TargetType="TextBox">
             <Setter Property="Grid.Column" Value="1"/>
             <Setter Property="Margin" Value="0,14,0,0"/>
+            <Setter Property="Height" Value="23"></Setter>
+            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+            <Setter Property="Text" Value=""></Setter>
         </Style>
         <Style TargetType="StackPanel">
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -54,16 +57,20 @@
 
         </StackPanel>
         <StackPanel Grid.Column="1">
-            <TextBox x:Name="fotoTextBox" Height="23" TextWrapping="Wrap" Text=""/>
-            <Button x:Name="subirButton" Content="subir cartel" Margin="0" VerticalAlignment="Stretch" Width="Auto" Click="subirButton_Click"/>
-            <TextBox x:Name="TituloTextBox" Height="23" TextWrapping="Wrap" Text=""/>
-            <TextBox x:Name="horaTextBox" Height="23" TextWrapping="Wrap" Text=""/>
-            <TextBox x:Name="salaTextBox" Height="23" TextWrapping="Wrap" Text=""/>
-           
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="fotoTextBox"  Width="400" Text=""/>
+                <Button x:Name="subirButton" Content="subir cartel" Margin="0"  Width="Auto" Click="subirButton_Click"/>
+            </StackPanel>
+
+            <TextBox x:Name="TituloTextBox"/>
+            <TextBox x:Name="horaTextBox"/>
+            <TextBox x:Name="salaTextBox"/>
+
         </StackPanel>
-       
+
         <StackPanel  Style="{StaticResource botonesStack}">
             <Button x:Name="add" Content="Añadir" Click="add_Click" />
+            <Button x:Name="eliminar" Content="eliminar"  />
             <Button Content="Cancelar" />
             <Button Content="Guardar" />
 
