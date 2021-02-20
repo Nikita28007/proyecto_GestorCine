@@ -9,7 +9,8 @@ namespace proyecto_GestorCine
 {
     class Sesion : INotifyPropertyChanged
     {
-      public  string foto { get; set; }
+        
+        public  string foto { get; set; }
         public string titulo { get; set; }
         public string hora { get; set; }
         public string sala { get; set; }

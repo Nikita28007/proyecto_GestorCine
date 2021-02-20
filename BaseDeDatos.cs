@@ -46,8 +46,59 @@ namespace proyecto_GestorCine
             _conexion.Open();
             _comando = _conexion.CreateCommand();
 
-            _comando.CommandText = @"CREATE TABLE IF NOT EXISTS peliculas (
-                                    id integer primary key,titulo varchar(100),cartel varchar(255),year)";
+            _comando.CommandText = @"CREATE TABLE peliculas (idPelicula INTEGER PRIMARY KEY,titulo TEXT,cartel TEXT,año INTEGER,genero TEXT,calificacion TEXT);";
+            _comando.CommandText = @"CREATE TABLE salas (idSala INTEGER PRIMARY KEY AUTOINCREMENT,numero TEXT,capacidad INTEGER,disponible BOOLEAN DEFAULT (true));";
+            _comando.CommandText = @"CREATE TABLE sesiones (idSesion INTEGER PRIMARY KEY AUTOINCREMENT,pelicula INTEGER REFERENCES peliculas (idPelicula),sala INTEGER REFERENCES salas (idSala),hora TEXT);";
+            _comando.CommandText = @"CREATE TABLE ventas (idVenta INTEGER PRIMARY KEY AUTOINCREMENT,sesion INTEGER REFERENCES sesiones (idSesion),cantidad INTEGER,pago TEXT);";
+
+            _comando.ExecuteNonQuery();
+
+            _conexion.Close();
+        }
+
+
+        public void Insertar(Sesion sesion)
+        {
+            _conexion.Open();
+            _comando = _conexion.CreateCommand();
+
+            _comando.CommandText = "INSERT INTO sesiones VALUES (@pelicula,@sala,@hora)";
+            _comando.Parameters.Add("@pelicula", SqliteType.Integer);
+            _comando.Parameters.Add("@sala", SqliteType.Integer);
+            _comando.Parameters.Add("@hora", SqliteType.Text);
+            _comando.Parameters["@pelicula"].Value = sesion;
+            _comando.Parameters["@sala"].Value = sesion.sala;
+            _comando.Parameters["@hora"].Value = sesion.hora;
+            _comando.ExecuteNonQuery();
+
+            _conexion.Close();
+        }
+
+        public void Actualizar(Sesion sesion)
+        {
+            _conexion.Open();
+            _comando = _conexion.CreateCommand();
+
+            _comando.CommandText = "UPDATE sesiones SET pelicula=@pelicula,sala=@sala,hora=@hora WHERE idSesion=@idSesion";
+            _comando.Parameters.Add("@pelicula", SqliteType.Integer);
+            _comando.Parameters.Add("@sala", SqliteType.Integer);
+            _comando.Parameters.Add("@hora", SqliteType.Text);
+            _comando.Parameters["@pelicula"].Value = sesion.titulo;
+            _comando.Parameters["@sala"].Value = sesion.sala;
+            _comando.Parameters["@hora"].Value = sesion.hora;
+            _comando.ExecuteNonQuery();
+
+            _conexion.Close();
+        }
+
+        public void Delete(Sesion sesion)
+        {
+            _conexion.Open();
+            _comando = _conexion.CreateCommand();
+
+            _comando.CommandText = "DELETE FROM sesiones WHERE idSesion=@id";
+            _comando.Parameters.Add("@id", SqliteType.Integer);
+            _comando.Parameters["@id"].Value = sesion;
             _comando.ExecuteNonQuery();
 
             _conexion.Close();
