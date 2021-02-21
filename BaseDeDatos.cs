@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace proyecto_GestorCine
 {
-    
+
     class BaseDeDatos
     {
         string filePath = "";
@@ -22,17 +22,17 @@ namespace proyecto_GestorCine
         public BaseDeDatos()
         {
             CrearBaseDeDatos();
-            string conection=string.Format("Data Source={0};",filePath);
+            string conection = string.Format("Data Source={0};", filePath);
             _conexion = new SqliteConnection(conection);
-           
+
             //CrearTablas();
-           // InsertarDatos();
+            // InsertarDatos();
         }
 
         private void CrearBaseDeDatos()
         {
-    
-            if (!string.IsNullOrEmpty(path)||!Directory.Exists(path))
+
+            if (!string.IsNullOrEmpty(path) || !Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
                 filePath = path + "\\peliculas.db";
@@ -40,9 +40,9 @@ namespace proyecto_GestorCine
             }
             if (!File.Exists(filePath))
             {
-             
+
                 SQLiteConnection.CreateFile(filePath);
-                   
+
             }
         }
 
@@ -70,14 +70,14 @@ namespace proyecto_GestorCine
             _conexion.Open();
             _comando = _conexion.CreateCommand();
 
-            _comando.CommandText = @"CREATE TABLE peliculas (idPelicula INTEGER PRIMARY KEY,titulo TEXT,cartel TEXT,año INTEGER,genero TEXT,calificacion TEXT);";
+            _comando.CommandText = @"CREATE TABLE IF NOT EXISTS peliculas (idPelicula INTEGER PRIMARY KEY,titulo TEXT,cartel TEXT,año INTEGER,genero TEXT,calificacion TEXT);";
             _comando.ExecuteNonQuery();
-            _comando.CommandText = @"CREATE TABLE salas (idSala INTEGER PRIMARY KEY AUTOINCREMENT,numero TEXT,capacidad INTEGER,disponible BOOLEAN DEFAULT (true));";
+            _comando.CommandText = @"CREATE TABLE IF NOT EXISTS salas (idSala INTEGER PRIMARY KEY AUTOINCREMENT,numero TEXT,capacidad INTEGER,disponible BOOLEAN DEFAULT (true));";
             _comando.ExecuteNonQuery();
-            _comando.CommandText = @"CREATE TABLE sesiones (idSesion INTEGER PRIMARY KEY AUTOINCREMENT,pelicula INTEGER REFERENCES peliculas (idPelicula),sala INTEGER REFERENCES salas (idSala),hora TEXT);";
+            _comando.CommandText = @"CREATE TABLE IF NOT EXISTS sesiones (idSesion INTEGER PRIMARY KEY AUTOINCREMENT,pelicula INTEGER REFERENCES peliculas (idPelicula),sala INTEGER REFERENCES salas (idSala),hora TEXT);";
             _comando.ExecuteNonQuery();
-            _comando.CommandText = @"CREATE TABLE ventas (idVenta INTEGER PRIMARY KEY AUTOINCREMENT,sesion INTEGER REFERENCES sesiones (idSesion),cantidad INTEGER,pago TEXT);";
-       
+            _comando.CommandText = @"CREATE TABLE IF NOT EXISTS ventas (idVenta INTEGER PRIMARY KEY AUTOINCREMENT,sesion INTEGER REFERENCES sesiones (idSesion),cantidad INTEGER,pago TEXT);";
+
 
             _conexion.Close();
         }
@@ -123,6 +123,25 @@ namespace proyecto_GestorCine
             _conexion.Close();
         }
 
+        public void InsertarVentas(Ventas ventas)
+        {
+            _conexion.Open();
+            _comando = _conexion.CreateCommand();
+
+            _comando.CommandText = "INSERT INTO ventas VALUES (null,@sesion,@cantidad,@pago)";
+            _comando.Parameters.Add("@sesion", SqliteType.Text);
+            _comando.Parameters.Add("@cantidad", SqliteType.Integer);
+            _comando.Parameters.Add("@pago", SqliteType.Text);
+
+            _comando.Parameters["@sesion"].Value = ventas.sesion;
+            _comando.Parameters["@cantidad"].Value = ventas.cantidad;
+            _comando.Parameters["@pago"].Value = ventas.pago;
+
+            _comando.ExecuteNonQuery();
+
+            _conexion.Close();
+        }
+
         public ObservableCollection<Peliculas> ObtenerPeliculas()
         {
             ObservableCollection<Peliculas> resultado = new ObservableCollection<Peliculas>();
@@ -138,13 +157,13 @@ namespace proyecto_GestorCine
                 while (lector.Read())
                 {
                     int id = lector.GetInt32(0);
-                    string titulo= lector.GetString(1);
-                    string cartel= lector.GetString(2);
-                    int anyo= lector.GetInt32(3);
-                    string genero= lector.GetString(4);
+                    string titulo = lector.GetString(1);
+                    string cartel = lector.GetString(2);
+                    int anyo = lector.GetInt32(3);
+                    string genero = lector.GetString(4);
                     string calificacion = lector.GetString(5);
 
-                    resultado.Add(new Peliculas(id,titulo,cartel,anyo,genero,calificacion));
+                    resultado.Add(new Peliculas(id, titulo, cartel, anyo, genero, calificacion));
                 }
             }
 

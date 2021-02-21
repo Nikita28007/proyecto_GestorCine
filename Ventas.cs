@@ -8,11 +8,11 @@ namespace proyecto_GestorCine
 {
     class Ventas
     {
-        int? id { get; set; }
-        int? sesion { get; set; }
-        Sesion idSesion { get; set; }
-        int? cantidad { get; set; }
-        string pago { get; set; }
+        public int? id { get; set; }
+        public int? sesion { get; set; }
+        public Sesion idSesion { get; set; }
+        public int? cantidad { get; set; }
+        public string pago { get; set; }
 
         public Ventas()
         {
