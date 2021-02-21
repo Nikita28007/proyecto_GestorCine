@@ -22,7 +22,18 @@ namespace proyecto_GestorCine
            
         );
 
+        public static readonly RoutedUICommand pay = new RoutedUICommand
+            (
+                 "pagar enrada",
+                  "pay entrance",
+                  typeof(CustomCommands),
+                  new InputGestureCollection()
+                  {
+                       new KeyGesture(Key.G,ModifierKeys.Control)
 
+                  }
+
+        );
 
 
 

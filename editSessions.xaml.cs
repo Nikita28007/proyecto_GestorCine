@@ -21,17 +21,19 @@ namespace proyecto_GestorCine
     /// </summary>
     public partial class editSessions : Window
     {
-
+        Sesion sesion = new Sesion();
         ObservableCollection<Sesion> sesiones = new ObservableCollection<Sesion>();
         ObservableCollection<Peliculas> peliculas;
         ApiRestCine apirest = new ApiRestCine();
+        BaseDeDatos db;
         public editSessions()
         {
-
+            
             InitializeComponent();
+            db = new BaseDeDatos();
             peliculas = apirest.obtenerTodasPeliculas();
             editComboBox.ItemsSource = peliculas;
-
+          
         }
 
         private void subirButton_Click(object sender, RoutedEventArgs e)
@@ -67,8 +69,26 @@ namespace proyecto_GestorCine
                 sesion.hora = horaTextBox.Text;
                 sesion.sala = Convert.ToInt32(salaTextBox.Text);
 
-                sesiones.Add(sesion);
+                db.InsertarSesion(sesion);
             }
         }
+
+        
+
+        private void guardarButton_Click(object sender, RoutedEventArgs e)
+        {
+           
+            sesion.hora = horaTextBox.Text;
+            sesion.pelicula =Convert.ToInt32( TituloTextBox.Text);
+            sesion.sala = Convert.ToInt32(salaTextBox.Text);
+            db.Actualizar(sesion);
+        }
+
+        private void eliminar_Click(object sender, RoutedEventArgs e)
+        {
+            db.Delete(sesion);
+        }
+
+      
     }
 }

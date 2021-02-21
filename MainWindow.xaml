@@ -10,6 +10,7 @@
     <Window.CommandBindings>
 
         <CommandBinding Command="local:CustomCommands.editarSesion" Executed="CommandBinding_Executed_edit"/>
+        <CommandBinding Command="local:CustomCommands.pay" Executed="CommandBinding_Executed_pay"/>
 
     </Window.CommandBindings>
     <DockPanel>
@@ -29,7 +30,7 @@
         <StackPanel DockPanel.Dock="Right"  VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Right" Margin="5">
             <Button x:Name="editarButton" Content="Editar sesiones" Width="110" Margin="0,0,0,10" Command="local:CustomCommands.editarSesion" Click="editarButton_Click"/>
             <Button Content="recargar cartelera" Width="110" />
-            <Button Content="vender entrada" Width="110" Margin="0,10,0,0"/>
+            <Button Content="vender entrada" Width="110" Margin="0,10,0,0" Command="local:CustomCommands.pay"/>
 
 
 

@@ -69,10 +69,10 @@
         </StackPanel>
 
         <StackPanel  Style="{StaticResource botonesStack}">
-            <Button x:Name="add" Content="Añadir" Click="add_Click" />
-            <Button x:Name="eliminar" Content="eliminar"  />
-            <Button Content="Cancelar" />
-            <Button Content="Guardar" />
+            <Button x:Name="add" Content="Añadir" Click="add_Click"/>
+            <Button x:Name="eliminar" Content="eliminar" Click="eliminar_Click"  />
+            <Button Content="Cancelar" IsCancel="True"/>
+            <Button x:Name="guardarButton" Content="Guardar" IsDefault="True" Click="guardarButton_Click"/>
 
         </StackPanel>
         <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center">

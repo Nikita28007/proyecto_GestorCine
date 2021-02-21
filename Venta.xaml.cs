@@ -19,9 +19,18 @@ namespace proyecto_GestorCine
     /// </summary>
     public partial class Venta : Window
     {
+        BaseDeDatos db;
         public Venta()
         {
             InitializeComponent();
+            db = new BaseDeDatos();
+            peliculadDataGrid.AutoGenerateColumns = false;
+            peliculadDataGrid.ItemsSource = db.ObtenerPeliculas(); 
+        }
+
+        private void peliculadDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

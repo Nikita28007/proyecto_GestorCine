@@ -21,8 +21,8 @@ namespace proyecto_GestorCine
     /// </summary>
     public partial class MainWindow : Window
     {
-         BaseDeDatos db ;
-         ApiRestCine apirest = new ApiRestCine();
+        BaseDeDatos db;
+        ApiRestCine apirest = new ApiRestCine();
 
         ObservableCollection<Peliculas> peliculas;
         public MainWindow()
@@ -36,10 +36,10 @@ namespace proyecto_GestorCine
             {
                 Console.WriteLine(item.year);
             }
-           // InsertarPeliculas();
+            // InsertarPeliculas();
         }
 
-        public void InsertarPeliculas() 
+        public void InsertarPeliculas()
         {
             ObservableCollection<Peliculas> peliculas2;
             foreach (var item in peliculas)
@@ -55,11 +55,6 @@ namespace proyecto_GestorCine
 
         private void CommandBinding_Executed_edit(object sender, ExecutedRoutedEventArgs e)
         {
-
-        }
-
-        private void editarButton_Click(object sender, RoutedEventArgs e)
-        {
             ApiRestCine api = new ApiRestCine();
             editSessions editarSesion = new editSessions();
             editarSesion.Owner = this;
@@ -67,7 +62,12 @@ namespace proyecto_GestorCine
             {
                 editarSesion.editComboBox.ItemsSource = api.obtenerTodasPeliculas();
             }
-            else { MessageBox.Show("no funciona"); }
+
+        }
+      
+        private void editarButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void help_Click(object sender, RoutedEventArgs e)
@@ -75,7 +75,14 @@ namespace proyecto_GestorCine
             MessageBox.Show("TODO");
         }
 
-        
+        private void CommandBinding_Executed_pay(object sender, ExecutedRoutedEventArgs e)
+        {
+            Venta venta = new Venta();
+            venta.Owner = this;
+            if (venta.ShowDialog()==true)
+            {
 
+            }
+        }
     }
 }
