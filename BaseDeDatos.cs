@@ -1,26 +1,50 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SQLite;
+using System.Diagnostics;
 
 namespace proyecto_GestorCine
 {
     
     class BaseDeDatos
     {
-      
+        string filePath = "";
+        string path = System.Environment.CurrentDirectory + "\\DB";
         private readonly SqliteConnection _conexion;
         private SqliteCommand _comando;
 
         public BaseDeDatos()
         {
-            _conexion = new SqliteConnection("Data Source=peliculas.db");
-            CrearTablas();
-            InsertarDatos();
+            CrearBaseDeDatos();
+            string conection=string.Format("Data Source={0};",filePath);
+            _conexion = new SqliteConnection(conection);
+           
+            //CrearTablas();
+           // InsertarDatos();
         }
 
+        private void CrearBaseDeDatos()
+        {
+    
+            if (!string.IsNullOrEmpty(path)||!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+                filePath = path + "\\peliculas.db";
+
+            }
+            if (!File.Exists(filePath))
+            {
+             
+                SQLiteConnection.CreateFile(filePath);
+                   
+            }
+        }
 
         private void InsertarDatos()
         {
@@ -47,31 +71,88 @@ namespace proyecto_GestorCine
             _comando = _conexion.CreateCommand();
 
             _comando.CommandText = @"CREATE TABLE peliculas (idPelicula INTEGER PRIMARY KEY,titulo TEXT,cartel TEXT,año INTEGER,genero TEXT,calificacion TEXT);";
-            _comando.CommandText = @"CREATE TABLE salas (idSala INTEGER PRIMARY KEY AUTOINCREMENT,numero TEXT,capacidad INTEGER,disponible BOOLEAN DEFAULT (true));";
-            _comando.CommandText = @"CREATE TABLE sesiones (idSesion INTEGER PRIMARY KEY AUTOINCREMENT,pelicula INTEGER REFERENCES peliculas (idPelicula),sala INTEGER REFERENCES salas (idSala),hora TEXT);";
-            _comando.CommandText = @"CREATE TABLE ventas (idVenta INTEGER PRIMARY KEY AUTOINCREMENT,sesion INTEGER REFERENCES sesiones (idSesion),cantidad INTEGER,pago TEXT);";
-
             _comando.ExecuteNonQuery();
+            _comando.CommandText = @"CREATE TABLE salas (idSala INTEGER PRIMARY KEY AUTOINCREMENT,numero TEXT,capacidad INTEGER,disponible BOOLEAN DEFAULT (true));";
+            _comando.ExecuteNonQuery();
+            _comando.CommandText = @"CREATE TABLE sesiones (idSesion INTEGER PRIMARY KEY AUTOINCREMENT,pelicula INTEGER REFERENCES peliculas (idPelicula),sala INTEGER REFERENCES salas (idSala),hora TEXT);";
+            _comando.ExecuteNonQuery();
+            _comando.CommandText = @"CREATE TABLE ventas (idVenta INTEGER PRIMARY KEY AUTOINCREMENT,sesion INTEGER REFERENCES sesiones (idSesion),cantidad INTEGER,pago TEXT);";
+       
 
             _conexion.Close();
         }
 
 
-        public void Insertar(Sesion sesion)
+        public void InsertarSesion(Sesion sesion)
         {
             _conexion.Open();
             _comando = _conexion.CreateCommand();
 
-            _comando.CommandText = "INSERT INTO sesiones VALUES (@pelicula,@sala,@hora)";
+            _comando.CommandText = "INSERT INTO sesiones VALUES (null,@pelicula,@sala,@hora)";
             _comando.Parameters.Add("@pelicula", SqliteType.Integer);
             _comando.Parameters.Add("@sala", SqliteType.Integer);
             _comando.Parameters.Add("@hora", SqliteType.Text);
-            _comando.Parameters["@pelicula"].Value = sesion;
+            _comando.Parameters["@pelicula"].Value = sesion.pelicula;
             _comando.Parameters["@sala"].Value = sesion.sala;
             _comando.Parameters["@hora"].Value = sesion.hora;
             _comando.ExecuteNonQuery();
 
             _conexion.Close();
+        }
+
+        public void InsertarPelicula(Peliculas pelicula)
+        {
+            _conexion.Open();
+            _comando = _conexion.CreateCommand();
+
+            _comando.CommandText = "INSERT INTO peliculas VALUES (@idPelicula,@titulo,@cartel,@año,@genero,@calificacion)";
+            _comando.Parameters.Add("@idPelicula", SqliteType.Integer);
+            _comando.Parameters.Add("@titulo", SqliteType.Text);
+            _comando.Parameters.Add("@cartel", SqliteType.Text);
+            _comando.Parameters.Add("@año", SqliteType.Integer);
+            _comando.Parameters.Add("@genero", SqliteType.Text);
+            _comando.Parameters.Add("@calificacion", SqliteType.Text);
+            _comando.Parameters["@idPelicula"].Value = pelicula.id;
+            _comando.Parameters["@titulo"].Value = pelicula.titulo;
+            _comando.Parameters["@cartel"].Value = pelicula.cartel;
+            _comando.Parameters["@año"].Value = pelicula.year;
+            _comando.Parameters["@genero"].Value = pelicula.genero;
+            _comando.Parameters["@calificacion"].Value = pelicula.calificacion;
+            _comando.ExecuteNonQuery();
+
+            _conexion.Close();
+        }
+
+        public ObservableCollection<Peliculas> ObtenerPeliculas()
+        {
+            ObservableCollection<Peliculas> resultado = new ObservableCollection<Peliculas>();
+
+            _conexion.Open();
+            _comando = _conexion.CreateCommand();
+
+            _comando.CommandText = "SELECT * FROM peliculas";
+            SqliteDataReader lector = _comando.ExecuteReader();
+
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    int id = lector.GetInt32(0);
+                    string titulo= lector.GetString(1);
+                    string cartel= lector.GetString(2);
+                    int anyo= lector.GetInt32(3);
+                    string genero= lector.GetString(4);
+                    string calificacion = lector.GetString(5);
+
+                    resultado.Add(new Peliculas(id,titulo,cartel,anyo,genero,calificacion));
+                }
+            }
+
+            lector.Close();
+            _conexion.Close();
+
+            return resultado;
+
         }
 
         public void Actualizar(Sesion sesion)
@@ -83,7 +164,7 @@ namespace proyecto_GestorCine
             _comando.Parameters.Add("@pelicula", SqliteType.Integer);
             _comando.Parameters.Add("@sala", SqliteType.Integer);
             _comando.Parameters.Add("@hora", SqliteType.Text);
-            _comando.Parameters["@pelicula"].Value = sesion.titulo;
+            _comando.Parameters["@pelicula"].Value = sesion.pelicula;
             _comando.Parameters["@sala"].Value = sesion.sala;
             _comando.Parameters["@hora"].Value = sesion.hora;
             _comando.ExecuteNonQuery();

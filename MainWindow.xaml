@@ -49,7 +49,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="año" Binding="{Binding año}"/>
+                <DataGridTextColumn Header="año" Binding="{Binding year}"/>
                 <DataGridTextColumn Header="genero" Binding="{Binding genero}"/>
                 <DataGridTextColumn Header="calificacion" Binding="{Binding calificacion}"/>
             </DataGrid.Columns>

@@ -10,31 +10,31 @@ namespace proyecto_GestorCine
     class Sesion : INotifyPropertyChanged
     {
         
-        public  string foto { get; set; }
-        public string titulo { get; set; }
+
+        public int? pelicula { get; set; }
         public string hora { get; set; }
-        public string sala { get; set; }
+        public int? sala { get; set; }
 
 
         public Sesion()
         {
-            foto = "";
-            titulo ="";
+
+            pelicula = null;
             hora = "";
-            sala = "";
+            sala = null;
         }
 
-        public Sesion(string foto,string titulo, string hora, string sala)
+        public Sesion(int titulo, string hora, int sala)
         {
-            this.foto = foto;
-            this.titulo = titulo;
+          
+            this.pelicula = titulo;
             this.hora = hora;
             this.sala = sala;
         }
         public Sesion(Sesion sesion) 
         {
-            foto = sesion.foto;
-            titulo = sesion.titulo;
+
+            pelicula = sesion.pelicula;
             hora = sesion.hora;
             sala = sesion.sala;
         }

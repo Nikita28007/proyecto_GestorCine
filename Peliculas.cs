@@ -33,7 +33,7 @@ namespace proyecto_GestorCine
 
         public Peliculas()
         {
-            id = null;
+            id = 0;
             year = null;
             titulo = "";
             cartel = "";

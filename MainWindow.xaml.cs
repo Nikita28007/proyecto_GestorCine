@@ -21,18 +21,36 @@ namespace proyecto_GestorCine
     /// </summary>
     public partial class MainWindow : Window
     {
-         
+         BaseDeDatos db ;
          ApiRestCine apirest = new ApiRestCine();
 
         ObservableCollection<Peliculas> peliculas;
         public MainWindow()
         {
             InitializeComponent();
+            db = new BaseDeDatos();
             peliculadDataGrid.AutoGenerateColumns = false;
             peliculas = apirest.obtenerTodasPeliculas();
             peliculadDataGrid.ItemsSource = peliculas;
-           
+            foreach (var item in peliculas)
+            {
+                Console.WriteLine(item.year);
+            }
+           // InsertarPeliculas();
+        }
 
+        public void InsertarPeliculas() 
+        {
+            ObservableCollection<Peliculas> peliculas2;
+            foreach (var item in peliculas)
+            {
+                db.InsertarPelicula(item);
+            }
+            peliculas2 = db.ObtenerPeliculas();
+            foreach (var item in peliculas2)
+            {
+                Console.WriteLine(item);
+            }
         }
 
         private void CommandBinding_Executed_edit(object sender, ExecutedRoutedEventArgs e)

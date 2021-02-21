@@ -62,10 +62,10 @@ namespace proyecto_GestorCine
             Sesion sesion = new Sesion();
             if (TituloTextBox.Text != null || horaTextBox.Text != null || salaTextBox.Text != null || fotoTextBox.Text != null)
             {
-                sesion.titulo = TituloTextBox.Text;
-                sesion.foto = fotoTextBox.Text;
+                sesion.pelicula = Convert.ToInt32( TituloTextBox.Text);
+             
                 sesion.hora = horaTextBox.Text;
-                sesion.sala = salaTextBox.Text;
+                sesion.sala = Convert.ToInt32(salaTextBox.Text);
 
                 sesiones.Add(sesion);
             }
