@@ -46,8 +46,8 @@ namespace proyecto_GestorCine
             }
         }
 
-       
-        
+
+
         private void CrearTablas()
         {
             _conexion.Open();
@@ -140,7 +140,7 @@ namespace proyecto_GestorCine
             {
                 while (lector.Read())
                 {
-                     id = lector.GetInt32(0);
+                    id = lector.GetInt32(0);
                     string titulo = lector.GetString(1);
                     string cartel = lector.GetString(2);
                     int anyo = lector.GetInt32(3);

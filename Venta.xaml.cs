@@ -15,19 +15,22 @@ using System.Windows.Shapes;
 
 namespace proyecto_GestorCine
 {
-    /// <summary>
-    /// Lógica de interacción para Venta.xaml
-    /// </summary>
+
     public partial class Venta : Window
     {
         BaseDeDatos db;
         ObservableCollection<Peliculas> peliculas;
+        ApiRestCine api;
         public Venta()
         {
             InitializeComponent();
             db = new BaseDeDatos();
+            api = new ApiRestCine();
             peliculadDataGrid.AutoGenerateColumns = false;
-            peliculadDataGrid.ItemsSource = db.ObtenerPeliculas();
+           // peliculadDataGrid.ItemsSource = db.ObtenerPeliculas();
+           //no se porque se me roto la bases de datos 
+           //antes se mostraba los datos de peliculas desde DB
+            peliculadDataGrid.ItemsSource = api.obtenerTodasPeliculas();
         }
 
         private void peliculadDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -16,14 +16,14 @@
 
 
         </StackPanel>
-        <StackPanel DockPanel.Dock="Right" Width="143">
+        <StackPanel DockPanel.Dock="Right" Width="143" VerticalAlignment="Center">
            
             <RadioButton x:Name="efectivoRadioButton" GroupName="pago" Content="Efectivo" IsEnabled="False"/>
             <RadioButton x:Name="tarjetaRadioButton" GroupName="pago" Content="Tarjeta" IsEnabled="False"/>
             <RadioButton x:Name="bizumRadioButton" GroupName="pago" Content="Bizum" IsEnabled="False"/>
 
         </StackPanel>
-            <DataGrid x:Name="peliculadDataGrid" ItemsSource="{Binding}" SelectionChanged="peliculadDataGrid_SelectionChanged">
+        <DataGrid x:Name="peliculadDataGrid" ItemsSource="{Binding}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding id}"/>
                 <DataGridTextColumn Header="Titulo" Binding="{Binding titulo}"/>
