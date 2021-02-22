@@ -142,6 +142,38 @@ namespace proyecto_GestorCine
             _conexion.Close();
         }
 
+
+        public ObservableCollection<Peliculas> getPelicula(int id)
+        {
+            ObservableCollection<Peliculas> resultado = new ObservableCollection<Peliculas>();
+            _conexion.Open();
+            _comando = _conexion.CreateCommand();
+
+            _comando.CommandText = "Select * FROM peliculas WHERE idPelicula=" + id;
+            SqliteDataReader lector = _comando.ExecuteReader();
+
+
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                     id = lector.GetInt32(0);
+                    string titulo = lector.GetString(1);
+                    string cartel = lector.GetString(2);
+                    int anyo = lector.GetInt32(3);
+                    string genero = lector.GetString(4);
+                    string calificacion = lector.GetString(5);
+
+                    resultado.Add(new Peliculas(id, titulo, cartel, anyo, genero, calificacion));
+                }
+            }
+
+            lector.Close();
+            _conexion.Close();
+
+            return resultado;
+        }
+
         public ObservableCollection<Peliculas> ObtenerPeliculas()
         {
             ObservableCollection<Peliculas> resultado = new ObservableCollection<Peliculas>();

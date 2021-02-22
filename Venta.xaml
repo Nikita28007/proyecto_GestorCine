@@ -11,16 +11,16 @@
 
         <StackPanel DockPanel.Dock="Bottom" Margin="5" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Bottom">
             <Button Content="Cancelar" Margin="0,0,10,0" IsCancel="True"/>
-            <Button Content="Aceptar" IsDefault="True"/>
+            <Button x:Name="cobrarButton" Content="Aceptar" IsDefault="True" Click="cobrarButton_Click"/>
 
 
 
         </StackPanel>
         <StackPanel DockPanel.Dock="Right" Width="143">
            
-            <RadioButton GroupName="pago" Content="Efectivo"/>
-            <RadioButton GroupName="pago" Content="Tarjeta"/>
-            <RadioButton GroupName="pago" Content="Bizum"/>
+            <RadioButton x:Name="efectivoRadioButton" GroupName="pago" Content="Efectivo" IsEnabled="False"/>
+            <RadioButton x:Name="tarjetaRadioButton" GroupName="pago" Content="Tarjeta" IsEnabled="False"/>
+            <RadioButton x:Name="bizumRadioButton" GroupName="pago" Content="Bizum" IsEnabled="False"/>
 
         </StackPanel>
             <DataGrid x:Name="peliculadDataGrid" ItemsSource="{Binding}" SelectionChanged="peliculadDataGrid_SelectionChanged">
