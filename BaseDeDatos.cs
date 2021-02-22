@@ -46,25 +46,8 @@ namespace proyecto_GestorCine
             }
         }
 
-        private void InsertarDatos()
-        {
-            _conexion.Open();
-            _comando = _conexion.CreateCommand();
-
-            _comando.CommandText = "DELETE FROM personas";
-            _comando.ExecuteNonQuery();
-            _comando.CommandText = "INSERT INTO personas VALUES ('Ana',30)";
-            _comando.ExecuteNonQuery();
-            _comando.CommandText = "INSERT INTO personas VALUES ('Pedro',25)";
-            _comando.ExecuteNonQuery();
-            _comando.CommandText = "INSERT INTO personas VALUES ('Clara',28)";
-            _comando.ExecuteNonQuery();
-            _comando.CommandText = "INSERT INTO personas VALUES ('Juan',19)";
-            _comando.ExecuteNonQuery();
-
-            _conexion.Close();
-        }
-        //int? id, string titulo, string cartel, int? year, string genero, string calificacion
+       
+        
         private void CrearTablas()
         {
             _conexion.Open();
