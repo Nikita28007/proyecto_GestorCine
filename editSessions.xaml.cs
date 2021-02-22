@@ -21,7 +21,7 @@ namespace proyecto_GestorCine
     /// </summary>
     public partial class editSessions : Window
     {
-        Sesion sesion = new Sesion();
+      
         ObservableCollection<Sesion> sesiones = new ObservableCollection<Sesion>();
         ObservableCollection<Peliculas> peliculas;
         ApiRestCine apirest = new ApiRestCine();
@@ -77,7 +77,7 @@ namespace proyecto_GestorCine
 
         private void guardarButton_Click(object sender, RoutedEventArgs e)
         {
-           
+            Sesion sesion = new Sesion();
             sesion.hora = horaTextBox.Text;
             sesion.pelicula =Convert.ToInt32( TituloTextBox.Text);
             sesion.sala = Convert.ToInt32(salaTextBox.Text);
@@ -86,6 +86,10 @@ namespace proyecto_GestorCine
 
         private void eliminar_Click(object sender, RoutedEventArgs e)
         {
+            Sesion sesion = new Sesion();
+            sesion.hora = horaTextBox.Text;
+            sesion.pelicula = Convert.ToInt32(TituloTextBox.Text);
+            sesion.sala = Convert.ToInt32(salaTextBox.Text);
             db.Delete(sesion);
         }
 

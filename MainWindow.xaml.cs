@@ -33,6 +33,7 @@ namespace proyecto_GestorCine
             peliculadDataGrid.AutoGenerateColumns = false;
             peliculas = apirest.obtenerTodasPeliculas();
             peliculadDataGrid.ItemsSource = peliculas;
+          
             foreach (var item in peliculas)
             {
                 Console.WriteLine(item.year);
@@ -89,6 +90,11 @@ namespace proyecto_GestorCine
 
             Process.Start(@"C:\Users\777\Documents\DINT-WPF\proyecto_GestorCine\Ayuda_Cine.chm" );
             //TODO ruta relativa
+        }
+
+        private void recargarButton_Click(object sender, RoutedEventArgs e)
+        {
+            CollectionViewSource.GetDefaultView(peliculas).Refresh();
         }
     }
 }

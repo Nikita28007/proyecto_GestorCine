@@ -26,7 +26,6 @@ namespace proyecto_GestorCine
         {
             InitializeComponent();
             db = new BaseDeDatos();
-
             peliculadDataGrid.AutoGenerateColumns = false;
             peliculadDataGrid.ItemsSource = db.ObtenerPeliculas();
         }
