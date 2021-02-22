@@ -15,7 +15,7 @@ namespace proyecto_GestorCine
     class BaseDeDatos
     {
         string filePath = "";
-        string path = System.Environment.CurrentDirectory + "\\DB";
+        string path = Environment.CurrentDirectory + "\\DB";
         private readonly SqliteConnection _conexion;
         private SqliteCommand _comando;
 

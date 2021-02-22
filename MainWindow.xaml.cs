@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,10 +71,7 @@ namespace proyecto_GestorCine
 
         }
 
-        private void help_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("TODO");
-        }
+      
 
         private void CommandBinding_Executed_pay(object sender, ExecutedRoutedEventArgs e)
         {
@@ -83,6 +81,14 @@ namespace proyecto_GestorCine
             {
 
             }
+        }
+
+        private void CommandBinding_Executed_help(object sender, ExecutedRoutedEventArgs e)
+        {
+            string path = Environment.CurrentDirectory + "\\Ayuda_Cine.chm";
+
+            Process.Start(@"C:\Users\777\Documents\DINT-WPF\proyecto_GestorCine\Ayuda_Cine.chm" );
+            //TODO ruta relativa
         }
     }
 }

@@ -19,7 +19,7 @@ namespace proyecto_GestorCine
                        new KeyGesture(Key.E,ModifierKeys.Control)
 
                   }
-           
+
         );
 
         public static readonly RoutedUICommand pay = new RoutedUICommand
@@ -35,7 +35,18 @@ namespace proyecto_GestorCine
 
         );
 
+        public static readonly RoutedUICommand help = new RoutedUICommand
+            (
+                 "Ayuda",
+                  "Help",
+                  typeof(CustomCommands),
+                  new InputGestureCollection()
+                  {
+                       new KeyGesture(Key.F1)
 
+                  }
+
+        );
 
     }
 }
