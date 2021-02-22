@@ -14,6 +14,14 @@
         <CommandBinding Command="local:CustomCommands.help" Executed="CommandBinding_Executed_help"/>
 
     </Window.CommandBindings>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="110"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            
+        </Style>
+        
+    </Window.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Archivo">
@@ -22,7 +30,7 @@
                 <MenuItem Header="Ayuda" Command="local:CustomCommands.help"/>
 
             </MenuItem>
-            <MenuItem Header="TODO"/>
+        
 
         </Menu>
 
@@ -30,12 +38,10 @@
             <Image Source="help.png" Height="20"  Width="20"/>
         </Button>
         <StackPanel DockPanel.Dock="Right"  VerticalAlignment="Center" Orientation="Vertical" HorizontalAlignment="Right" Margin="5">
-            <Button x:Name="editarButton" Content="Editar sesiones" Width="110" Margin="0,0,0,10" Command="local:CustomCommands.editarSesion" Click="editarButton_Click"/>
-            <Button x:Name="recargarButton" Content="recargar cartelera" Width="110" Click="recargarButton_Click"/>
-            <Button Content="vender entrada" Width="110" Margin="0,10,0,0" Command="local:CustomCommands.pay"/>
-
-
-
+            <Button   x:Name="editarButton" Content="Editar sesiones"   Command="local:CustomCommands.editarSesion" Click="editarButton_Click"/>
+            <Button x:Name="recargarButton" Content="recargar cartelera"  Click="recargarButton_Click"/>
+            <Button Content="vender entrada"  Margin="0" Command="local:CustomCommands.pay"/>
+            
         </StackPanel>
 
 

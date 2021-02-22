@@ -7,6 +7,13 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="proyecto_GestorCine.Venta"
         mc:Ignorable="d"
         Title="Venta" Height="305.597" Width="585.075">
+    <Window.Resources>
+        <Style TargetType="RadioButton">
+            <Setter Property="IsEnabled" Value="False"/>
+            <Setter Property="GroupName" Value="pago"/>
+        </Style>
+       
+    </Window.Resources>
     <DockPanel>
 
         <StackPanel DockPanel.Dock="Bottom" Margin="5" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Bottom">
@@ -18,9 +25,9 @@
         </StackPanel>
         <StackPanel DockPanel.Dock="Right" Width="143" VerticalAlignment="Center">
            
-            <RadioButton x:Name="efectivoRadioButton" GroupName="pago" Content="Efectivo" IsEnabled="False"/>
-            <RadioButton x:Name="tarjetaRadioButton" GroupName="pago" Content="Tarjeta" IsEnabled="False"/>
-            <RadioButton x:Name="bizumRadioButton" GroupName="pago" Content="Bizum" IsEnabled="False"/>
+            <RadioButton x:Name="efectivoRadioButton" Content="Efectivo" />
+            <RadioButton x:Name="tarjetaRadioButton"  Content="Tarjeta" />
+            <RadioButton x:Name="bizumRadioButton"    Content="Bizum"/>
 
         </StackPanel>
         <DataGrid x:Name="peliculadDataGrid" ItemsSource="{Binding}">

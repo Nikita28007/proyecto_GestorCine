@@ -49,10 +49,10 @@
 
 
         <StackPanel VerticalAlignment="Center" Grid.Column="0">
-            <TextBlock TextWrapping="Wrap" Text="Foto"/>
-            <TextBlock TextWrapping="Wrap" Text="Titulo"/>
-            <TextBlock TextWrapping="Wrap" Text="Hora"/>
-            <TextBlock TextWrapping="Wrap" Text="Sala"/>
+            <TextBlock Text="Foto"/>
+            <TextBlock Text="Titulo"/>
+            <TextBlock Text="Hora"/>
+            <TextBlock Text="Sala"/>
 
 
         </StackPanel>
